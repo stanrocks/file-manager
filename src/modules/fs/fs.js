@@ -120,7 +120,10 @@ export const copyFile = async (...args) => {
       writable.on('finish', resolve);
     });
   } catch (error) {
-    handleOperationFailure();
+    const customError = new Error('Copy operation failed');
+    customError.originalError = error;
+    customError.silent = true;
+    throw customError;
   } finally {
     if (fdr) {
       try {
