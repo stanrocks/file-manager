@@ -21,6 +21,7 @@ import {
   removeFile,
 } from '../fs/fs.js';
 import { osInfo } from '../os/os.js';
+import { calcHash } from '../hash/hash.js';
 
 const rl = readline.createInterface({ input, output });
 
@@ -43,6 +44,7 @@ const commands = {
   mv: moveFile,
   rm: removeFile,
   os: osInfo,
+  hash: calcHash,
 };
 
 const handleCommand = async () => {
