@@ -68,9 +68,6 @@ const handleCommand = async () => {
         handleInputError();
       }
     } catch (error) {
-      // DELETE THIS
-      console.error(error);
-
       handleOperationFailure();
     }
   }

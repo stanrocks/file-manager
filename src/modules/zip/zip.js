@@ -22,7 +22,6 @@ export const compress = async (...args) => {
 
     await pipeline(readable, bCompress, writable);
   } catch (error) {
-    console.log('Compression. Error during pipeline operation', error);
     handleOperationFailure();
   }
 };
