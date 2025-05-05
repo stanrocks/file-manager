@@ -11,6 +11,16 @@ import {
   changeDir,
   listFiles,
 } from '../nwd/navWorkDir.js';
+import {
+  readFile,
+  createFile,
+  createDir,
+  renameFile,
+  copyFile,
+  moveFile,
+  removeFile,
+} from '../fs/fs.js';
+import { osInfo } from '../os/os.js';
 
 const rl = readline.createInterface({ input, output });
 
@@ -25,6 +35,14 @@ const commands = {
   cd: changeDir,
   ls: listFiles,
   [EXIT_COMMAND]: () => exitFileManager(),
+  cat: readFile,
+  add: createFile,
+  mkdir: createDir,
+  rn: renameFile,
+  cp: copyFile,
+  mv: moveFile,
+  rm: removeFile,
+  os: osInfo,
 };
 
 const handleCommand = async () => {
