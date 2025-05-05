@@ -1,2 +1,3 @@
-# file-manager
-RSS Node.js course related repo
+# File manager
+
+Please check out `dev` branch.
