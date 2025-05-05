@@ -22,6 +22,7 @@ import {
 } from '../fs/fs.js';
 import { osInfo } from '../os/os.js';
 import { calcHash } from '../hash/hash.js';
+import { compress, decompress } from '../zip/zip.js';
 
 const rl = readline.createInterface({ input, output });
 
@@ -32,10 +33,10 @@ const exitFileManager = () => {
 };
 
 const commands = {
+  [EXIT_COMMAND]: () => exitFileManager(),
   up: navToParentDir,
   cd: changeDir,
   ls: listFiles,
-  [EXIT_COMMAND]: () => exitFileManager(),
   cat: readFile,
   add: createFile,
   mkdir: createDir,
@@ -45,6 +46,8 @@ const commands = {
   rm: removeFile,
   os: osInfo,
   hash: calcHash,
+  compress,
+  decompress,
 };
 
 const handleCommand = async () => {
