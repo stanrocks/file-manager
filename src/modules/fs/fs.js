@@ -12,8 +12,10 @@ export const readFile = async (...args) => {
 
   const filePath = path.resolve(args[0]);
 
+  let fd;
+
   try {
-    const fd = await fs.open(filePath);
+    fd = await fs.open(filePath);
     const readable = fd.createReadStream();
 
     readable.pipe(process.stdout);
@@ -27,6 +29,14 @@ export const readFile = async (...args) => {
     });
   } catch {
     handleOperationFailure();
+  } finally {
+    if (fd) {
+      try {
+        await fd.close();
+      } catch {
+        handleOperationFailure();
+      }
+    }
   }
 };
 
@@ -92,9 +102,12 @@ export const copyFile = async (...args) => {
   const targetFilePath = path.join(targetDir, path.basename(sourcePath));
   const options = 'wx';
 
+  let fdr;
+  let fdw;
+
   try {
-    const fdr = await fs.open(sourcePath);
-    const fdw = await fs.open(targetFilePath, options);
+    fdr = await fs.open(sourcePath);
+    fdw = await fs.open(targetFilePath, options);
 
     const readable = fdr.createReadStream();
     const writable = fdw.createWriteStream();
@@ -108,6 +121,22 @@ export const copyFile = async (...args) => {
     });
   } catch (error) {
     handleOperationFailure();
+  } finally {
+    if (fdr) {
+      try {
+        await fdr.close();
+      } catch {
+        handleOperationFailure();
+      }
+    }
+
+    if (fdw) {
+      try {
+        await fdw.close();
+      } catch {
+        handleOperationFailure();
+      }
+    }
   }
 };
 

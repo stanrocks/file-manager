@@ -12,10 +12,11 @@ export const calcHash = async (...args) => {
   }
 
   const hash = crypto.createHash('sha256');
+  let fd;
 
   try {
     const filePath = path.resolve(args[0]);
-    const fd = await fs.open(filePath);
+    fd = await fs.open(filePath);
     const readable = fd.createReadStream();
 
     readable.pipe(hash).setEncoding('hex').pipe(process.stdout);
@@ -29,5 +30,13 @@ export const calcHash = async (...args) => {
     });
   } catch {
     handleOperationFailure();
+  } finally {
+    if (fd) {
+      try {
+        await fd.close();
+      } catch {
+        handleOperationFailure();
+      }
+    }
   }
 };
