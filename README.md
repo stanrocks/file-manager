@@ -1,2 +1,3 @@
-# file-manager
-RSS Node.js course related repo
+# Node File Manager
+
+You can run script using `npm run start:named` to provide a predefined username.
